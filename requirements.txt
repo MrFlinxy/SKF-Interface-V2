@@ -1,0 +1,15 @@
+eventlet
+flask
+flask_migrate
+flask_restx
+flask_jwt_extended
+flask-cors
+flask-socketio
+flask_sqlalchemy
+openbabel-wheel
+psutil
+python-dotenv==1.0.0
+requests
+wheel==0.45.1
+setuptools==75.6.0
+Cython==3.0.11
