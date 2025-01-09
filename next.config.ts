@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
         source: "/api/:path",
         destination:
           process.env.NODE_ENV === "development"
-            ? "http://localhost:90749/api/:path"
-            : "/api/",
+            ? "http://127.0.0.1:5000/:path"
+            : "/",
       },
     ];
   },
