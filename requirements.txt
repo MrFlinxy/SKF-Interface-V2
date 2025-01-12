@@ -8,6 +8,7 @@ flask-socketio
 flask_sqlalchemy
 openbabel-wheel
 psutil
+Pyrebase4==4.8.0
 python-dotenv==1.0.0
 requests
 wheel==0.45.1
