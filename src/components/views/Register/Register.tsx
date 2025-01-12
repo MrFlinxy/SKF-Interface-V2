@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Controller } from "react-hook-form";
 import cn from "@/utils/cn";
+import DarkTheme from "@/components/commons/DarkTheme";
 
 const Register = () => {
   const {
@@ -21,22 +22,23 @@ const Register = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-10 lg:flex-row lg:gap-20">
       <div className="flex w-full flex-col items-center justify-center gap-10 lg:w-1/3">
-        <div className="w-2/3 text-center text-3xl font-bold text-danger lg:w-full">
+        <div className="w-2/3 text-center text-3xl font-bold text-primary-500 lg:w-full">
           <p className="text-7xl">Server</p>
           <p className="text-[44px]">Kimia Fisik</p>
         </div>
+        <DarkTheme />
       </div>
       <Card>
         <CardBody className="p-8">
-          <h2 className="text-xl font-bold text-danger-500">Daftar Akun</h2>
-          <p className="mb-4 mt-1 text-small">
+          <h2 className="text-2xl font-bold text-primary-500">Daftar Akun</h2>
+          <p className="mb-4 mt-2 text-small">
             Sudah punya akun?&nbsp;
-            <Link href="/auth/login" className="font-semibold text-danger-400">
+            <Link href="/auth/login" className="font-semibold text-primary-500">
               Masuk disini!
             </Link>
           </p>
           {errors.root && (
-            <p className="mb-2 font-medium text-danger">
+            <p className="mb-2 font-medium text-primary-500">
               {errors?.root?.message}
             </p>
           )}
@@ -167,11 +169,15 @@ const Register = () => {
               )}
             />
 
-            <Button color="danger" size="lg" type="submit">
+            <Button
+              className="bg-primary-500 font-semibold text-default-50 hover:text-default-900"
+              size="lg"
+              type="submit"
+            >
               {isPendingRegister ? (
                 <Spinner color="white" size="md" />
               ) : (
-                "Register"
+                "Daftar"
               )}
             </Button>
           </form>
