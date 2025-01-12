@@ -1,4 +1,5 @@
 from extensions.sql_alchemy import db
+from flask import jsonify
 import datetime
 
 
@@ -7,7 +8,6 @@ class User(db.Model):
     name: str = db.Column(db.String(), nullable=False)
     npm: int = db.Column(db.Integer(), unique=False, nullable=False)
     email: str = db.Column(db.String(80), unique=True, nullable=False)
-    password: str = db.Column(db.String(64), nullable=False)
     role: int = db.Column(db.Integer(), nullable=False, default=1)
     lab: int = db.Column(db.Integer(), nullable=False, default=1)
     isAdmin: bool = db.Column(db.Boolean(), nullable=False, default=False)
@@ -23,14 +23,23 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def read(self, id) -> dict:
-        pass
+    def read(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "npm": self.npm,
+            "email": self.email,
+            "role": self.role,
+            "lab": self.lab,
+            "isAdmin": self.isAdmin,
+            "isDisabled": self.isDisabled,
+            "dateCreated": self.dateCreated,
+        }
 
     def update(
         self,
         name: str,
         npm: int,
-        password: str,
         role: int,
         lab: int,
         isAdmin: bool,
@@ -38,7 +47,6 @@ class User(db.Model):
     ) -> None:
         self.name = name
         self.npm = npm
-        self.password = password
         self.role = role
         self.lab = lab
         self.isAdmin = isAdmin

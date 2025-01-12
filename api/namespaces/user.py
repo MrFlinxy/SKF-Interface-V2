@@ -2,6 +2,7 @@ from flask import request
 from flask_restx import Api, Resource, fields, Namespace
 from flask_jwt_extended import jwt_required
 from models.models import User
+import jwt
 
 user_ns = Namespace("user", description="A namespace for user")
 
@@ -12,7 +13,6 @@ user_model = user_ns.model(
         "name": fields.String(),
         "npm": fields.Integer(),
         "email": fields.String(),
-        "password": fields.String(),
         "role": fields.Integer(),
         "lab": fields.Integer(),
         "isAdmin": fields.Boolean(),
@@ -60,7 +60,6 @@ class UsersResource(Resource):
 @user_ns.route("/user/<int:id>")
 class UserResource(Resource):
     @user_ns.marshal_with(user_model)
-    # @jwt_required()
     def get(self, id):
         user = User.query.get_or_404(id)
         return user, 201
@@ -74,7 +73,6 @@ class UserResource(Resource):
         user_to_update.update(
             data.get("name"),
             data.get("npm"),
-            data.get("password"),
             data.get("role"),
             data.get("lab"),
             data.get("isAdmin"),
@@ -91,3 +89,17 @@ class UserResource(Resource):
         user_to_delete.delete()
 
         return user_to_delete, 201
+
+
+@user_ns.route("/user_by_email/")
+class UserResource(Resource):
+    @user_ns.marshal_with(user_model)
+    def get(self):
+        authorization_header = request.headers.get("Authorization")
+        bearer, _, token = authorization_header.partition(" ")
+
+        decoded_token = jwt.decode(token, options={"verify_signature": False})
+        email = decoded_token["email"]
+        user = User.query.filter_by(email=email).first()
+        user_data = user.read()
+        return user_data

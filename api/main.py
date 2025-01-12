@@ -29,6 +29,8 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
     app.config["JWT_COOKIE_DOMAIN"] = ".lvh.me"
+    app.config["JWT_DECODE_ALGORITHMS"] = ["RS256"]
+    app.config["JWT_IDENTITY_CLAIM"] = "sub"
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=8)
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=7)
     CORS(app)
