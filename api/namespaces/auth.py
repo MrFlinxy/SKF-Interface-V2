@@ -111,7 +111,6 @@ class SignUp(Resource):
 
 @auth_ns.route("/signin")
 class SignIn(Resource):
-    @auth_ns.marshal_with(signIn_model)
     @auth_ns.expect(signIn_model)
     def post(self):
         data: dict = request.get_json()
@@ -151,6 +150,7 @@ class SignIn(Resource):
                     "userId": user["localId"],
                 }
             )
+
         else:
             return (
                 {"name": "Akun tidak ditemukan"},
@@ -161,7 +161,6 @@ class SignIn(Resource):
 @auth_ns.route("/user_info")
 class UserInfo(Resource):
     @auth_ns.doc(security="token")
-    @cross_origin()
     def get(self):
         authorization_header = request.headers.get("Authorization")
         bearer, _, token = authorization_header.partition(" ")
