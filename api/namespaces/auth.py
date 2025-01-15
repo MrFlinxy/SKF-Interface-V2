@@ -1,14 +1,5 @@
 from flask_restx import Resource, Namespace, fields
 from flask import request, jsonify, make_response
-from flask_jwt_extended import (
-    decode_token,
-    jwt_required,
-    create_access_token,
-    create_refresh_token,
-    get_jwt_identity,
-    verify_jwt_in_request,
-    get_unverified_jwt_headers,
-)
 from models.models import User
 from flask_cors import cross_origin
 from .firebase.auth import firebase_auth, firebase_db
@@ -56,7 +47,6 @@ refreshToken_model = auth_ns.model(
 class SignUp(Resource):
     @auth_ns.marshal_with(signUp_model)
     @auth_ns.expect(signUp_model)
-    @cross_origin()
     def post(self):
         data: dict = request.get_json()
 
@@ -64,10 +54,16 @@ class SignUp(Resource):
         db_email = User.query.filter_by(email=data_email).first()
 
         if db_email is not None:
-            return jsonify({"message": "Email already registered"})
+            return (
+                {"name": "Email sudah digunakan"},
+                403,
+            )
 
         if data.get("password") != data.get("passwordConfirmation"):
-            return jsonify({"message": "Password did not match"})
+            return (
+                {"name": "Password tidak cocok"},
+                403,
+            )
 
         new_user: User = User(
             name=data.get("name"),
@@ -93,7 +89,11 @@ class SignUp(Resource):
                     f"{data.get("email").replace(".", ",")}"
                 ).set(user_data)
             except Exception as err:
-                jsonify({"message": err})
+
+                return (
+                    {"name": f"{err}"},
+                    403,
+                )
 
             new_user.create()
 
@@ -103,13 +103,16 @@ class SignUp(Resource):
 
             return res, 200
         except Exception as err:
-            return jsonify({"messsage": err})
+            return (
+                {"name": f"{err}"},
+                403,
+            )
 
 
 @auth_ns.route("/signin")
 class SignIn(Resource):
+    @auth_ns.marshal_with(signIn_model)
     @auth_ns.expect(signIn_model)
-    @cross_origin()
     def post(self):
         data: dict = request.get_json()
 
@@ -130,10 +133,13 @@ class SignIn(Resource):
                     ]
                     == False
                 ):
-                    return jsonify({"message": "Email belum diverifikasi"}), 402
+                    return {"error": "Email belum diverifikasi"}, 403
 
             except Exception as err:
-                return jsonify({"messsage": err})
+                return (
+                    {"name": f"{err}"},
+                    403,
+                )
 
             refresh_token: str = user["refreshToken"]
             user_token: str = user["idToken"]
@@ -146,7 +152,10 @@ class SignIn(Resource):
                 }
             )
         else:
-            return jsonify({"message": "User not found"})
+            return (
+                {"name": "Akun tidak ditemukan"},
+                403,
+            )
 
 
 @auth_ns.route("/user_info")
