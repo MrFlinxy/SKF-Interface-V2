@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +6,7 @@ import { IRegister } from "@/types/Auth";
 import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { ToasterContext } from "@/context/ToasterContext";
 
 const registerSchema = yup.object().shape({
   name: yup.string().required("Nama lengkap wajib diisi"),
@@ -31,6 +32,7 @@ const useRegister = () => {
     password: false,
     passwordConfirmation: false,
   });
+  const { setToaster } = useContext(ToasterContext);
 
   const handleVisiblePassword = (key: "password" | "passwordConfirmation") => {
     setVisiblePassword({
@@ -56,14 +58,19 @@ const useRegister = () => {
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
-    onError(error) {
-      setError("root", {
-        message: error.message,
+    onError(error: any) {
+      setToaster({
+        type: "error",
+        message: error.response.data.name,
       });
     },
-    onSuccess: () => {
-      router.push("/auth/register/success");
+    onSuccess: (data) => {
       reset();
+      setToaster({
+        type: "success",
+        message: "Berhasil mendaftarkan akun",
+      });
+      router.push("/auth/register/success");
     },
   });
 

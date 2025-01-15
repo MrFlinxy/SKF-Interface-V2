@@ -1,16 +1,11 @@
 import "@/styles/globals.css";
-import cn from "@/utils/cn";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
-import { Inter } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
+import AppShell from "@/components/commons/AppShell";
+import { ToasterProvider } from "@/context/ToasterContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,9 +25,11 @@ export default function App({
       <QueryClientProvider client={queryClient}>
         <NextUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="dark">
-            <main className={cn(inter.className)}>
-              <Component {...pageProps} />
-            </main>
+            <ToasterProvider>
+              <AppShell>
+                <Component {...pageProps} />
+              </AppShell>
+            </ToasterProvider>
           </NextThemesProvider>
         </NextUIProvider>
       </QueryClientProvider>
