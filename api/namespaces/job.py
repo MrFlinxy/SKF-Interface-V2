@@ -112,9 +112,6 @@ class SubmitSBATCH(Resource):
 @job_ns.route("/orca")
 class SubmitORCA(Resource):
     def post(self):
-        print("????????")
-        # data = request.files["inputFile"]
-        # data.save(f"../public/testingupload/{data.filename}")
+        if len(request.files) > 0:
+            print(request.files["inputFile"])
         print(request.form)
-        print("0000000000")
-        # print(data)

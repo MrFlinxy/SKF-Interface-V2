@@ -52,12 +52,11 @@ const useOrca = () => {
         type: "success",
         message: "Berhasil",
       });
-      router.push("/admin/submit/orca");
+      router.reload();
     },
   });
 
   const handleOrcaSubmit = (data: IOrca) => {
-    console.log(data);
     mutateOrca(data);
   };
 
