@@ -39,8 +39,8 @@ export class JsmeClass extends React.PureComponent {
     }
     this.jsmeApplet.setCallBack("AfterStructureModified", this.handleChange);
     this.jsmeApplet.readGenericMolecularInput(this.props.smiles);
-    this.jsmeApplet.setMolecularAreaScale(2.0);
-    this.jsmeApplet.setMenuScale(1.5);
+    this.jsmeApplet.setMolecularAreaScale(this.props.MolecularAreaScale);
+    this.jsmeApplet.setMenuScale(this.props.MenuScale);
   };
 
   handleChange = (jsmeEvent) => {

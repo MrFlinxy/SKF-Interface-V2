@@ -107,3 +107,14 @@ class SubmitSBATCH(Resource):
         user_data_path: str = f"../client/public/{email}/{jobname}"
 
         Path(user_data_path).mkdir(parents=True, exist_ok=True)
+
+
+@job_ns.route("/orca")
+class SubmitORCA(Resource):
+    def post(self):
+        print("????????")
+        # data = request.files["inputFile"]
+        # data.save(f"../public/testingupload/{data.filename}")
+        print(request.form)
+        print("0000000000")
+        # print(data)

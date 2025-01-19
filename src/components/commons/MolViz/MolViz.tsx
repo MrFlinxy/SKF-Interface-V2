@@ -8,10 +8,11 @@ interface PropTypes {
   fileName: string;
   fileUrl: string;
   key?: string;
+  widthSize: number;
 }
 
 const MolViewer = (props: PropTypes) => {
-  const { fileName, fileUrl, key } = props;
+  const { fileName, fileUrl, key, widthSize } = props;
 
   const handleLoad = async () => {
     const resp = await fetch(fileUrl);
@@ -29,30 +30,32 @@ const MolViewer = (props: PropTypes) => {
       stick: { radius: 0.1, doubleBondScaling: 0.45, tripleBondScaling: 0.25 },
       sphere: { radius: 0.25 },
     });
-    viewer.addPropertyLabels(
-      "elem",
-      { not: { elem: "H" } },
-      {
-        fontColor: "black",
-        font: "sans-serif",
-        fontSize: 24,
-        showBackground: false,
-        alignment: "center",
-        inFront: true,
-      },
-    );
-    viewer.addPropertyLabels(
-      "elem",
-      { not: { elem: "H" } },
-      {
-        fontColor: "white",
-        font: "sans-serif",
-        fontSize: 24,
-        showBackground: false,
-        alignment: "center",
-        inFront: true,
-      },
-    );
+    // if (labelEnable) {
+    //   viewer.addPropertyLabels(
+    //     "elem",
+    //     { not: { elem: "H" } },
+    //     {
+    //       fontColor: "black",
+    //       font: "sans-serif",
+    //       fontSize: 24,
+    //       showBackground: false,
+    //       alignment: "center",
+    //       inFront: true,
+    //     },
+    //   );
+    //   viewer.addPropertyLabels(
+    //     "elem",
+    //     { not: { elem: "H" } },
+    //     {
+    //       fontColor: "white",
+    //       font: "sans-serif",
+    //       fontSize: 24,
+    //       showBackground: false,
+    //       alignment: "center",
+    //       inFront: true,
+    //     },
+    //   );
+    // }
     viewer.render();
   };
 
@@ -62,10 +65,10 @@ const MolViewer = (props: PropTypes) => {
 
   return (
     <div>
-      <div>
+      <div className="flex items-center justify-center bg-white">
         <div
           id="container-01"
-          className="relative flex h-[500px] w-[768px]"
+          className={`relative flex h-[500px] w-[350px] sm:w-[600px] md:w-[750px]`}
         ></div>
       </div>
     </div>
