@@ -101,6 +101,18 @@ const Orca = () => {
             setUploadedFile={setUploadedFile}
             setValue={setValue}
           />
+          {uploadedFile ? (
+            <div className="flex items-center justify-center p-2">
+              <Button
+                onPress={() => setUploadedFile(undefined)}
+                className="bg-accent-400 font-semibold"
+              >
+                Remove
+              </Button>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="flex flex-col items-center justify-center gap-3 lg:flex-row">

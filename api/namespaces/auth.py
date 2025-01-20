@@ -182,12 +182,3 @@ class RefreshToken(Resource):
             jsonify(new_user),
             200,
         )
-
-
-# @auth_ns.route("/upload")
-# class UploadFile(Resource):
-#     def post(self):
-#         data = request.get_json()
-
-#         with open("../client/public/mdimasn131@gmail.com/testing.xyz", "w") as f:
-#             f.write(data["filecontent"])

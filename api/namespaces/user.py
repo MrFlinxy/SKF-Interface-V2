@@ -1,6 +1,5 @@
 from flask import request
-from flask_restx import Api, Resource, fields, Namespace
-from flask_jwt_extended import jwt_required
+from flask_restx import Resource, fields, Namespace
 from models.models import User
 import jwt
 
@@ -37,14 +36,12 @@ userHistory_model = user_ns.model(
 @user_ns.route("/users")
 class UsersResource(Resource):
     @user_ns.marshal_list_with(user_model)
-    # @jwt_required()
     def get(self) -> dict:
         users = User.query.all()
-        return users, 201
+        return users
 
     @user_ns.marshal_with(user_model)
     @user_ns.expect(user_model)
-    # @jwt_required()
     def post(self):
         data = request.get_json()
 
@@ -54,7 +51,7 @@ class UsersResource(Resource):
 
         new_user.create()
 
-        return new_user, 201
+        return new_user
 
 
 @user_ns.route("/user/<int:id>")
@@ -62,10 +59,9 @@ class UserResource(Resource):
     @user_ns.marshal_with(user_model)
     def get(self, id):
         user = User.query.get_or_404(id)
-        return user, 201
+        return user
 
     @user_ns.marshal_with(user_model)
-    # @jwt_required()
     def put(self, id):
         user_to_update = User.query.get_or_404(id)
         data = request.get_json()
@@ -79,16 +75,15 @@ class UserResource(Resource):
             data.get("isDisabled"),
         )
 
-        return user_to_update, 201
+        return user_to_update
 
     @user_ns.marshal_with(user_model)
-    # @jwt_required()
     def delete(self, id):
         user_to_delete = User.query.get_or_404(id)
 
         user_to_delete.delete()
 
-        return user_to_delete, 201
+        return user_to_delete
 
 
 @user_ns.route("/user_by_email/")
