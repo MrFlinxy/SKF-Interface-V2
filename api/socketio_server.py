@@ -8,88 +8,108 @@ except ImportError:
     pass
 
 
-def get_slurm_data_dict() -> dict:
+def get_slurm_data_dict() -> list:
     try:
         jobs_dict = pyslurm.Jobs.load()
 
-        data = dict()
+        data = []
 
         for job in jobs_dict:
             job_dict = pyslurm.Job.load(job).to_dict()
-            data[job_dict["id"]] = {
-                "name": job_dict["name"],
-                "run_time": job_dict["run_time"],
-                "cpus": job_dict["cpus"],
-                "submit_time": job_dict["submit_time"],
-                "end_time": job_dict["end_time"],
-                "state": job_dict["state"],
-                "comment": job_dict["comment"],
-            }
+            data.append(
+                {
+                    "id": job_dict["id"],
+                    "user": job_dict["name"],
+                    "run_time": job_dict["run_time"],
+                    "cpu": job_dict["cpus"],
+                    "submit_time": job_dict["submit_time"],
+                    "time": job_dict["end_time"],
+                    "state": job_dict["state"],
+                    "software": job_dict["comment"],
+                }
+            )
 
         return data
     except:
-        return {
-            1347: {
-                "name": "testing nama",
+        return [
+            {
+                "id": 1347,
+                "user": "testing nama",
                 "state": "RUNNING",
                 "run_time": 2743,
-                "cpus": 2,
+                "cpu": 2,
                 "submit_time": 1735999987,
                 "suspend_tine": None,
-                "end_time": 1767535987,
-                "comment": "orca601",
+                "time": f"{datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")}",
+                "software": "orca601",
             },
-            1348: {
-                "name": "testing nama",
+            {
+                "id": 1348,
+                "user": "testing nama",
                 "state": "RUNNING",
                 "run_time": 2195,
-                "cpus": 2,
+                "cpu": 2,
                 "submit_time": 1736000532,
                 "suspend_tine": None,
-                "end_time": 1767536535,
-                "comment": "gaussian16",
+                "time": 1767536535,
+                "software": "gaussian16",
             },
-            1349: {
-                "name": "testing nama",
+            {
+                "id": 1349,
+                "user": "testing nama",
                 "state": "PENDING",
                 "run_time": 2195,
-                "cpus": 2,
+                "cpu": 2,
                 "submit_time": 1736000532,
                 "suspend_tine": None,
-                "end_time": 1767536535,
-                "comment": "orca601",
+                "time": 1767536535,
+                "software": "orca601",
             },
-            1350: {
-                "name": "testing nama",
+            {
+                "id": 1350,
+                "user": "testing nama",
                 "state": "COMPLETED",
                 "run_time": 2195,
-                "cpus": 2,
+                "cpu": 2,
                 "submit_time": 1736000532,
                 "suspend_tine": None,
-                "end_time": 1767536535,
-                "comment": "orca601",
+                "time": 1767536535,
+                "software": "orca601",
             },
-            1351: {
-                "name": "testing nama",
+            {
+                "id": 1351,
+                "user": "testing nama",
                 "state": "CANCELLED",
                 "run_time": 2195,
-                "cpus": 2,
+                "cpu": 2,
                 "submit_time": 1736000532,
                 "suspend_tine": None,
-                "end_time": 1767536535,
-                "comment": "orca601",
+                "time": 1767536535,
+                "software": "orca601",
             },
-            1352: {
-                "name": "testing nama",
+            {
+                "id": 1352,
+                "user": "testing nama",
                 "state": "FAILED",
                 "run_time": 2195,
-                "cpus": 2,
+                "cpu": 2,
                 "submit_time": 1736000532,
                 "suspend_tine": None,
-                "end_time": 1767536535,
-                "comment": "orca601",
+                "time": 1767536535,
+                "software": "orca601",
             },
-        }
+            {
+                "id": 1353,
+                "user": "testing nama",
+                "state": "FAILED",
+                "run_time": 123,
+                "cpu": 2,
+                "submit_time": 1736000532,
+                "suspend_tine": None,
+                "time": 1767536535,
+                "software": "orca601",
+            },
+        ]
 
 
 def emit_in_interval(sio: SocketIO) -> None:

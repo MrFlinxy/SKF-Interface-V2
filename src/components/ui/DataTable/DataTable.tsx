@@ -17,7 +17,7 @@ interface PropTypes {
 const DataTable = (props: PropTypes) => {
   const { columns, data, renderCell } = props;
   return (
-    <Table>
+    <Table aria-label="Queue Table">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn key={column.uid as Key}>
