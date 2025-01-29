@@ -11,7 +11,7 @@ import cn from "@/utils/cn";
 const Orca = () => {
   const [smiles, setSmiles] = useState("");
   const [formValue, setFormValue] = useState(smiles);
-  const [uploadedFile, setUploadedFile] = useState<File>();
+  const [uploadedFile, setUploadedFile] = useState<File | undefined>();
   const [widthSize, setWidthSize] = useState(640);
 
   const {
@@ -101,18 +101,6 @@ const Orca = () => {
             setUploadedFile={setUploadedFile}
             setValue={setValue}
           />
-          {uploadedFile ? (
-            <div className="flex items-center justify-center p-2">
-              <Button
-                onPress={() => setUploadedFile(undefined)}
-                className="bg-accent-400 font-semibold"
-              >
-                Remove
-              </Button>
-            </div>
-          ) : (
-            ""
-          )}
         </div>
       </div>
       <div className="flex flex-col items-center justify-center gap-3 lg:flex-row">

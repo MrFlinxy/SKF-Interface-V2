@@ -1,4 +1,5 @@
 import cn from "@/utils/cn";
+import { Button } from "@nextui-org/react";
 import { ChangeEvent, useEffect, useId, useRef } from "react";
 import { CiFileOn, CiSaveUp2 } from "react-icons/ci";
 
@@ -55,6 +56,7 @@ const InputFile = (props: PropTypes) => {
     if (files && files.length > 0) {
       setUploadedFile(files[0]);
       setValue("inputFile", files[0]);
+      setValue("smiles", undefined);
     }
   };
 
@@ -74,12 +76,27 @@ const InputFile = (props: PropTypes) => {
         accept={filetype}
         id={`dropzone-file-${dropzoneId}`}
         onChange={handleOnChange}
+        onClick={(e) => {
+          e.currentTarget.value = "";
+          e.target.dispatchEvent(new Event("change", { bubbles: true }));
+        }}
       />
       {uploadedFile ? (
         <div className="flex flex-col items-center justify-center p-5 lg:h-full">
           <CiFileOn className="mb-2 h-10 w-10" />
           <div className="text-center text-sm font-semibold">
             {uploadedFile.name}
+          </div>
+          <div className="flex items-center justify-center p-2">
+            <Button
+              onPress={() => {
+                setUploadedFile(undefined);
+                setValue("inputFile", undefined);
+              }}
+              className="bg-accent-400 font-semibold"
+            >
+              Remove
+            </Button>
           </div>
         </div>
       ) : (
