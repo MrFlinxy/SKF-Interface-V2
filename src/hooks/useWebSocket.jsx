@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
 /**
  * On mount, connect to the socket.io server
@@ -9,11 +9,8 @@ import { io, Socket } from "socket.io-client";
  * @param {*} handleData
  * @returns
  */
-const useWebSocket = (
-  url: string,
-  handleData: (e: Record<string, unknown>[]) => void,
-) => {
-  const [socket, setSocket] = useState<Socket | null>();
+const useWebSocket = (url, handleData) => {
+  const [socket, setSocket] = useState();
 
   useEffect(() => {
     const socketClient = io(url);
@@ -39,7 +36,7 @@ const useWebSocket = (
     return () => {
       socketClient.close();
     };
-  }, [handleData, url]);
+  }, []);
 
   return socket;
 };

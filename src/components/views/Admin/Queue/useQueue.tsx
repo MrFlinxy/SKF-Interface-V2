@@ -4,7 +4,7 @@ import { Socket } from "socket.io-client";
 
 const GetQueueList = () => {
   const [queueData, setQueueData] = useState<Record<string, unknown>[]>();
-  const currentQueue: Socket | null | undefined = useWebSocket(
+  const currentQueue: any = useWebSocket(
     "http://localhost:5001",
     (data: Record<string, unknown>[]) => {
       if (data != null) {
