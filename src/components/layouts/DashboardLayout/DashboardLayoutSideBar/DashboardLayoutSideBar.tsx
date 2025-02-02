@@ -2,7 +2,7 @@ import DarkTheme from "@/components/commons/DarkTheme";
 import { Button, cn, Listbox, ListboxItem } from "@nextui-org/react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import { JSX } from "react";
 import { CiLogout } from "react-icons/ci";
 
@@ -21,6 +21,7 @@ interface PropTypes {
 const DashboardLayoutSideBar = (props: PropTypes) => {
   const { sidebarItems, isOpen } = props;
   const router = useRouter();
+  const pathname = usePathname();
   return (
     <div
       className={cn(
@@ -45,9 +46,7 @@ const DashboardLayoutSideBar = (props: PropTypes) => {
             <ListboxItem
               key={item.key}
               className={cn("my-1 h-12 text-2xl", {
-                "bg-primary-500 text-black": router.pathname.startsWith(
-                  item.href,
-                ),
+                "bg-primary-500 text-black": pathname?.startsWith(item.href),
               })}
               startContent={item.icon}
               textValue={item.label}

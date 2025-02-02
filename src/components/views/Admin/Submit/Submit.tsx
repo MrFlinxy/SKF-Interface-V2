@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Submit = () => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div>

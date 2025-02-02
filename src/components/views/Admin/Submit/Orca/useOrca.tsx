@@ -46,8 +46,7 @@ const useOrca = () => {
 
   const { mutate: mutateOrca, isPending: isPendingOrca } = useMutation({
     mutationFn: orcaService,
-    onError(error) {
-      console.log(error);
+    onError() {
       setToaster({
         type: "error",
         message: "ERROR",

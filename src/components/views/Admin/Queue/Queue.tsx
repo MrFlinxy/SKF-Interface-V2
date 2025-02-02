@@ -7,7 +7,7 @@ import {
   DropdownTrigger,
   Spinner,
 } from "@nextui-org/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Key, ReactNode, useCallback } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { COLUMN_LISTS_QUEUE } from "./Queue.constant";
