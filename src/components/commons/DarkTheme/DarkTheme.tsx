@@ -1,10 +1,10 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { SVGProps, useEffect, useState } from "react";
 import { Switch } from "@nextui-org/react";
 
-export const MoonIcon = (props: any) => {
+export const MoonIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       aria-hidden="true"
@@ -23,7 +23,7 @@ export const MoonIcon = (props: any) => {
   );
 };
 
-export const SunIcon = (props: any) => {
+export const SunIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       aria-hidden="true"

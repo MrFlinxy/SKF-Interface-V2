@@ -7,10 +7,14 @@ import { useForm } from "react-hook-form";
 import { IOrca } from "@/types/Orca";
 import submitServices from "@/services/submit.service";
 import { useMutation } from "@tanstack/react-query";
+import UserToken from "@/components/commons/UserToken";
 
 const orcaSchema = yup.object().shape({
   basisSet: yup.string().required("Basis Set wajib diisi"),
   cpu: yup.string().required("Jumlah CPU wajib diisi"),
+  ram: yup.string().required("Jumlah RAM wajib diisi"),
+  charge: yup.string().required("Jumlah Muatan wajib diisi"),
+  multiplicity: yup.string().required("Jumlah multiplisitas wajib diisi"),
   dftMethod: yup.string().required("Metode DFT wajib diisi"),
   name: yup.string().required("Nama perhitungan wajib diisi"),
   type: yup.string().required("Tipe perhitungan wajib diisi"),
@@ -21,7 +25,8 @@ const orcaSchema = yup.object().shape({
 const useOrca = () => {
   const router = useRouter();
   const { setToaster } = useContext(ToasterContext);
-  const callbackUrl: string = (router.query.callbackUrl as string) || "/";
+  const UserSession = UserToken();
+  const UserEmail = UserSession?.user?.email;
 
   const {
     control,
@@ -34,20 +39,21 @@ const useOrca = () => {
   });
 
   const orcaService = async (payload: IOrca) => {
+    payload["email"] = UserEmail;
     const data = await submitServices.orca(payload);
     return data;
   };
 
   const { mutate: mutateOrca, isPending: isPendingOrca } = useMutation({
     mutationFn: orcaService,
-    onError(error: any) {
+    onError(error) {
       console.log(error);
       setToaster({
         type: "error",
         message: "ERROR",
       });
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       setToaster({
         type: "success",
         message: "Berhasil",

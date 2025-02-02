@@ -1,6 +1,8 @@
+import { JsmeSetValue } from "@/types/Jsme";
 import cn from "@/utils/cn";
 import { Button } from "@nextui-org/react";
-import { ChangeEvent, useEffect, useId, useRef } from "react";
+import { ChangeEvent, useCallback, useEffect, useId, useRef } from "react";
+import { UseFormSetValue } from "react-hook-form";
 import { CiFileOn, CiSaveUp2 } from "react-icons/ci";
 
 interface PropTypes {
@@ -9,8 +11,8 @@ interface PropTypes {
   isDropable?: boolean;
   name: string;
   uploadedFile?: File | null;
-  setUploadedFile: (e: any) => void;
-  setValue: any;
+  setUploadedFile: (e: File | undefined) => void;
+  setValue: UseFormSetValue<JsmeSetValue>;
 }
 
 const InputFile = (props: PropTypes) => {
@@ -26,17 +28,23 @@ const InputFile = (props: PropTypes) => {
   const drop = useRef<HTMLLabelElement>(null);
   const dropzoneId = useId();
 
-  const handleDragOver = (e: DragEvent) => {
-    if (isDropable) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
+  const handleDragOver = useCallback(
+    (e: DragEvent) => {
+      if (isDropable) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+    [isDropable],
+  );
 
-  const handleDrop = (e: DragEvent) => {
-    e.preventDefault();
-    setUploadedFile(e.dataTransfer?.files?.[0] || null);
-  };
+  const handleDrop = useCallback(
+    (e: DragEvent) => {
+      e.preventDefault();
+      setUploadedFile(e.dataTransfer?.files?.[0] || undefined);
+    },
+    [setUploadedFile],
+  );
 
   useEffect(() => {
     const dropCurrent = drop.current;
@@ -49,7 +57,7 @@ const InputFile = (props: PropTypes) => {
         dropCurrent.removeEventListener("drop", handleDrop);
       };
     }
-  }, []);
+  }, [handleDragOver, handleDrop]);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files;

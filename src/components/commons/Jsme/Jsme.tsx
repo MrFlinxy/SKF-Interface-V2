@@ -1,13 +1,15 @@
+import { UseFormSetValue } from "react-hook-form";
 import { JsmeClass } from "./jsme_src";
+import { JsmeSetValue } from "@/types/Jsme";
 
 interface PropTypes {
   formValue: string;
   height: string;
   menuScale: number;
   molecularAreaScale: number;
-  setFormValue: (e: any) => void;
-  setSmiles: (e: any) => void;
-  setValue: any;
+  setFormValue: (e: string) => void;
+  setSmiles: (e: string) => void;
+  setValue: UseFormSetValue<JsmeSetValue>;
   smiles: string;
   width: string;
 }
@@ -21,16 +23,17 @@ const Jsme = (props: PropTypes) => {
     setFormValue,
     setSmiles,
     setValue,
-    smiles,
     width,
   } = props;
 
-  const smilesChangeHandler = (e: any) => {
+  const smilesChangeHandler = (e: string) => {
     setValue("smiles", e);
     setSmiles(e);
   };
 
-  const smilesCustomChangeHandler = (e: any) => {
+  const smilesCustomChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setFormValue(e.target?.value);
     setValue("smiles", e.target?.value);
   };

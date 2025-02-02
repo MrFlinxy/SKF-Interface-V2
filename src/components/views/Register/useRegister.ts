@@ -7,6 +7,7 @@ import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { ToasterContext } from "@/context/ToasterContext";
+import { AxiosError } from "axios";
 
 const registerSchema = yup.object().shape({
   name: yup.string().required("Nama lengkap wajib diisi"),
@@ -46,7 +47,6 @@ const useRegister = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
@@ -58,13 +58,15 @@ const useRegister = () => {
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
-    onError(error: any) {
-      setToaster({
-        type: "error",
-        message: error.response.data.name,
-      });
+    onError(error: unknown) {
+      if (error instanceof AxiosError) {
+        setToaster({
+          type: "error",
+          message: error?.response?.data.name,
+        });
+      }
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       reset();
       setToaster({
         type: "success",

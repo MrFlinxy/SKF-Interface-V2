@@ -9,10 +9,10 @@ import useOrca from "./useOrca";
 import cn from "@/utils/cn";
 
 const Orca = () => {
-  const [smiles, setSmiles] = useState("");
-  const [formValue, setFormValue] = useState(smiles);
+  const [smiles, setSmiles] = useState<string>("");
+  const [formValue, setFormValue] = useState<string>(smiles);
   const [uploadedFile, setUploadedFile] = useState<File | undefined>();
-  const [widthSize, setWidthSize] = useState(640);
+  const [widthSize, setWidthSize] = useState<number>(640);
 
   const {
     control,
@@ -21,7 +21,6 @@ const Orca = () => {
     isPendingOrca,
     errors,
     setValue,
-    reset,
   } = useOrca();
   const variant = "underlined";
   const placement = "inside";
@@ -103,12 +102,12 @@ const Orca = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center gap-3 lg:flex-row">
+      <div className="flex flex-col items-center justify-center gap-3 p-2 lg:flex-row">
         <Card>
           <CardBody>
             <form
               className={cn(
-                "flex w-80 flex-col",
+                "grid w-[50rem] grid-flow-row grid-cols-3",
                 Object.keys(errors).length > 0 ? "gap-2" : "gap-4",
               )}
               onSubmit={handleSubmit(handleOrcaSubmit)}
@@ -182,6 +181,40 @@ const Orca = () => {
                 )}
               />
               <Controller
+                name="charge"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    label="Muatan"
+                    variant={variant}
+                    labelPlacement={placement}
+                    placeholder="0"
+                    autoComplete="off"
+                    isInvalid={false}
+                    errorMessage={"Yep"}
+                  />
+                )}
+              />
+              <Controller
+                name="multiplicity"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    label="Multiplisitas"
+                    variant={variant}
+                    labelPlacement={placement}
+                    placeholder="0"
+                    autoComplete="off"
+                    isInvalid={false}
+                    errorMessage={"Yep"}
+                  />
+                )}
+              />
+              <Controller
                 name="cpu"
                 control={control}
                 render={({ field }) => (
@@ -198,11 +231,28 @@ const Orca = () => {
                   />
                 )}
               />
+              <Controller
+                name="ram"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    label="Jumlah Memory (MB)"
+                    variant={variant}
+                    labelPlacement={placement}
+                    placeholder="512"
+                    autoComplete="off"
+                    isInvalid={false}
+                    errorMessage={"Yep"}
+                  />
+                )}
+              />
 
               <Button
                 size="lg"
                 type="submit"
-                className="bg-primary-500 font-semibold text-text-50 hover:text-text-900"
+                className="col-span-3 grid-cols-subgrid bg-primary-500 font-semibold text-text-50 hover:text-text-900"
               >
                 {isPendingOrca ? (
                   <Spinner color="white" size="md" />
