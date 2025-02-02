@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -23,7 +23,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <NextUIProvider>
+        <HeroUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="dark">
             <ToasterProvider>
               <AppShell>
@@ -31,7 +31,7 @@ export default function App({
               </AppShell>
             </ToasterProvider>
           </NextThemesProvider>
-        </NextUIProvider>
+        </HeroUIProvider>
       </QueryClientProvider>
     </SessionProvider>
   );

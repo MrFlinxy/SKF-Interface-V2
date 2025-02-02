@@ -1,6 +1,6 @@
 import Toaster from "@/components/ui/Toaster";
 import { defaultToaster, ToasterContext } from "@/context/ToasterContext";
-import { cn } from "@nextui-org/react";
+import { cn } from "@heroui/react";
 import { Inter } from "next/font/google";
 import { ReactNode, useContext, useEffect } from "react";
 

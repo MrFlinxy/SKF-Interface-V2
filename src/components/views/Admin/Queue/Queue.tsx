@@ -6,7 +6,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { Key, ReactNode, useCallback } from "react";
 import { CiMenuKebab } from "react-icons/ci";

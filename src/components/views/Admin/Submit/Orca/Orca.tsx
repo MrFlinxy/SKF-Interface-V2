@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import MolViz from "@/components/commons/MolViz";
 import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFIle";
-import { Button, Card, CardBody, Input, Spinner } from "@nextui-org/react";
+import { Button, Card, CardBody, Input, Spinner } from "@heroui/react";
 import useOrca from "./useOrca";
 import cn from "@/utils/cn";
 

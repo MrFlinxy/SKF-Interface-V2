@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { SVGProps, useEffect, useState } from "react";
-import { Switch } from "@nextui-org/react";
+import { Switch } from "@heroui/react";
 
 export const MoonIcon = (props: SVGProps<SVGSVGElement>) => {
   return (

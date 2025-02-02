@@ -2,7 +2,7 @@ import PageHead from "@/components/commons/PageHead";
 import { ReactNode, useState } from "react";
 import DashboardLayoutSideBar from "./DashboardLayoutSideBar";
 import { SIDEBAR_ADMIN, SIDEBAR_MEMBER } from "./DashboardLayout.constants";
-import { Navbar, NavbarMenuToggle } from "@nextui-org/react";
+import { Navbar, NavbarMenuToggle } from "@heroui/react";
 
 interface PropTypes {
   children: ReactNode;

@@ -1,5 +1,5 @@
 import DarkTheme from "@/components/commons/DarkTheme";
-import { Button, cn, Listbox, ListboxItem } from "@nextui-org/react";
+import { Button, cn, Listbox, ListboxItem } from "@heroui/react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
