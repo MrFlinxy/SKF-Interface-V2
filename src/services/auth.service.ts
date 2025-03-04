@@ -1,6 +1,6 @@
 import instance from "@/libs/axios/instance";
 import endpoint from "./endpoint.constant";
-import { ILogin, IRegister } from "@/types/Auth";
+import { ILogin, IRegister, IResetPassword } from "@/types/Auth";
 
 const authServices = {
   register: (payload: IRegister) =>
@@ -18,6 +18,8 @@ const authServices = {
         Authorization: `Bearer ${token}`,
       },
     }),
+  resetPassword: (email: IResetPassword) =>
+    instance.post(`${endpoint.AUTH}/reset_password`, email),
 };
 
 export default authServices;

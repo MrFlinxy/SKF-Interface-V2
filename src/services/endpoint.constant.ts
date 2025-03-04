@@ -1,7 +1,8 @@
 const endpoint = {
   AUTH: "/auth",
-  USER: "/user",
   JOB: "/job",
+  USER: "/user",
+  RESULT: "/result",
 };
 
 export default endpoint;

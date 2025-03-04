@@ -31,9 +31,13 @@ const Register = () => {
       <Card>
         <CardBody className="p-8">
           <h2 className="text-2xl font-bold text-primary-500">Daftar Akun</h2>
-          <p className="mb-4 mt-2 text-small">
+          <p className="mb-4 mt-2 text-small" tabIndex={-1}>
             Sudah punya akun?&nbsp;
-            <Link href="/auth/login" className="font-semibold text-primary-500">
+            <Link
+              href="/auth/login"
+              className="font-semibold text-primary-500"
+              tabIndex={-1}
+            >
               Masuk disini!
             </Link>
           </p>
@@ -120,11 +124,18 @@ const Register = () => {
                       className="focus:outline-none"
                       type="button"
                       onClick={() => handleVisiblePassword("password")}
+                      tabIndex={-1}
                     >
                       {visiblePassword.password ? (
-                        <FaEye className="pointer-events-none text-xl text-default-400" />
+                        <FaEye
+                          className="pointer-events-none text-xl text-default-400"
+                          tabIndex={-1}
+                        />
                       ) : (
-                        <FaEyeSlash className="pointer-events-none text-xl text-default-400" />
+                        <FaEyeSlash
+                          className="pointer-events-none text-xl text-default-400"
+                          tabIndex={-1}
+                        />
                       )}
                     </button>
                   }
@@ -155,11 +166,18 @@ const Register = () => {
                       onClick={() =>
                         handleVisiblePassword("passwordConfirmation")
                       }
+                      tabIndex={-1}
                     >
                       {visiblePassword.passwordConfirmation ? (
-                        <FaEye className="pointer-events-none text-xl text-default-400" />
+                        <FaEye
+                          className="pointer-events-none text-xl text-default-400"
+                          tabIndex={-1}
+                        />
                       ) : (
-                        <FaEyeSlash className="pointer-events-none text-xl text-default-400" />
+                        <FaEyeSlash
+                          className="pointer-events-none text-xl text-default-400"
+                          tabIndex={-1}
+                        />
                       )}
                     </button>
                   }

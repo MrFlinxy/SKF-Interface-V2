@@ -63,6 +63,14 @@ const Queue = () => {
           renderCell={renderCell}
           columns={COLUMN_LISTS_QUEUE}
           data={dataQueue}
+          emptyContent="Tidak ada perhitungan yang dikirimkan"
+          currentPage={1}
+          limit="99999"
+          onChangeLimit={() => {}}
+          onChangePage={() => {}}
+          onChangeSearch={() => {}}
+          onClearSearch={() => {}}
+          totalPages={1}
         ></DataTable>
       ) : (
         <div className="flex items-center justify-center">

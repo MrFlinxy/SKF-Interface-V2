@@ -87,11 +87,18 @@ const Login = () => {
                       className="focus:outline-none"
                       type="button"
                       onClick={toggleVisibility}
+                      tabIndex={-1}
                     >
                       {isVisible ? (
-                        <FaEye className="pointer-events-none text-xl text-default-400" />
+                        <FaEye
+                          className="pointer-events-none text-xl text-default-400"
+                          tabIndex={-1}
+                        />
                       ) : (
-                        <FaEyeSlash className="pointer-events-none text-xl text-default-400" />
+                        <FaEyeSlash
+                          className="pointer-events-none text-xl text-default-400"
+                          tabIndex={-1}
+                        />
                       )}
                     </button>
                   }
@@ -100,11 +107,20 @@ const Login = () => {
                 />
               )}
             />
+            <p className="mb-2 mt-2 text-end text-small" tabIndex={-1}>
+              <Link
+                href="/auth/resetpassword"
+                className="font-semibold text-primary-500"
+                tabIndex={-1}
+              >
+                Lupa password?
+              </Link>
+            </p>
 
             <Button
               size="lg"
               type="submit"
-              className="text-text-50 hover:text-text-900 bg-primary-500 font-semibold"
+              className="bg-primary-500 font-semibold text-text-50 hover:text-text-900"
             >
               {isPendingLogin ? <Spinner color="white" size="md" /> : "Login"}
             </Button>

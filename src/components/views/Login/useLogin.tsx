@@ -54,7 +54,7 @@ const useLogin = () => {
       });
     },
     onSuccess: () => {
-      reset();
+      reset({ email: "", password: "" });
       setToaster({
         type: "success",
         message: "Berhasil masuk",

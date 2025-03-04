@@ -14,6 +14,10 @@ interface IRegister {
   passwordConfirmation: string;
 }
 
+interface IResetPassword {
+  email: string;
+}
+
 interface UserExtended extends User {
   idToken?: string;
   refreshToken?: string;
@@ -40,4 +44,11 @@ interface JWTExtended extends JWT {
   user?: UserExtended;
 }
 
-export type { ILogin, IRegister, JWTExtended, SessionExtended, UserExtended };
+export type {
+  ILogin,
+  IRegister,
+  IResetPassword,
+  JWTExtended,
+  SessionExtended,
+  UserExtended,
+};

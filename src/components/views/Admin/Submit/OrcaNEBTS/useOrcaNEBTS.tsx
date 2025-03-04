@@ -17,11 +17,12 @@ const orcaSchema = yup.object().shape({
   dftMethod: yup.string().required("Metode DFT wajib diisi"),
   name: yup.string().required("Nama perhitungan wajib diisi"),
   type: yup.string().required("Tipe perhitungan wajib diisi"),
-  inputFile: yup.mixed<File>(),
+  inputFileReactant: yup.mixed<File>(),
+  inputFileProduct: yup.mixed<File>(),
   smiles: yup.string(),
 });
 
-const useOrca = () => {
+const useOrcaNEBTS = () => {
   const { setToaster } = useContext(ToasterContext);
   const UserSession = UserToken();
   const UserEmail = UserSession?.user?.email;
@@ -81,4 +82,4 @@ const useOrca = () => {
   };
 };
 
-export default useOrca;
+export default useOrcaNEBTS;

@@ -68,6 +68,7 @@ const Orca = () => {
                     fileName={uploadedFile.name}
                     key={uploadedFile.name}
                     widthSize={widthSize}
+                    isNEBTS={false}
                   />
                 }
               </div>

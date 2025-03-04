@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "flask-dev": "cd api/env/Scripts/ && activate && cd ../../ && python run.py",
-    "next-dev": "next dev --turbopack",
+    "next-dev": "set NODE_ENV=development & next dev --turbopack",
     "build": "set NODE_ENV=production & next build",
     "start": "next start",
     "lint": "next lint",

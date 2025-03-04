@@ -67,7 +67,13 @@ const useRegister = () => {
       }
     },
     onSuccess: () => {
-      reset();
+      reset({
+        email: "",
+        name: "",
+        npm: "",
+        password: "",
+        passwordConfirmation: "",
+      });
       setToaster({
         type: "success",
         message: "Berhasil mendaftarkan akun",

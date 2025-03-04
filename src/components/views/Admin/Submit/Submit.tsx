@@ -14,6 +14,7 @@ const Submit = () => {
         <div className="flex flex-col">
           <Link href="/admin/submit/gaussian">Gaussian</Link>
           <Link href="/admin/submit/orca">Orca</Link>
+          <Link href="/admin/submit/orcanebts">Orca NEBTS</Link>
         </div>
       </div>
     </div>

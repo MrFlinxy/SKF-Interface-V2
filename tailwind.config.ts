@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        mono: ["var(--font-source-code-pro)"],
+      },
       colors: {
         foreground: "var(--foreground)",
         text: {

@@ -35,6 +35,13 @@ signIn_model = auth_ns.model(
     },
 )
 
+resetPassword_model = auth_ns.model(
+    "ResetPassword",
+    {
+        "email": fields.String(),
+    },
+)
+
 refreshToken_model = auth_ns.model(
     "RefreshToken",
     {
@@ -156,6 +163,22 @@ class SignIn(Resource):
                 {"name": "Akun tidak ditemukan"},
                 403,
             )
+
+
+@auth_ns.route("/reset_password")
+class ResetPassword(Resource):
+    @auth_ns.expect(resetPassword_model)
+    def post(self):
+        data: dict = request.get_json()
+        email: str = data.get("email")
+
+        db_user = User.query.filter_by(email=email).first()
+
+        if db_user:
+            firebase_auth.send_password_reset_email(email)
+            return ({"name": "Silahkan cek email anda"}, 200)
+        else:
+            return ({"name": "Akun tidak ditemukan"}, 403)
 
 
 @auth_ns.route("/user_info")

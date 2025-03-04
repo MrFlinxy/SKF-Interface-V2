@@ -6,7 +6,7 @@ except ImportError:
 from datetime import datetime
 from dotenv import load_dotenv, find_dotenv
 from flask_restx import Resource, Namespace, fields
-from flask import request
+from flask import jsonify, request
 from openbabel import pybel as pb
 from os import environ, path
 from pathlib import Path
@@ -50,7 +50,7 @@ def submit_sbatch(
 ):
     if job_software == "orca601":
         job: pyslurm.JobSubmitDescription = pyslurm.JobSubmitDescription(
-            script=f"#!/bin/bash\n\n{environ.get("ORCA_601_PATH")} {job_dir}/{jobname}.inp > {job_dir}/{jobname}.out --oversubscribe",
+            script=f'#!/bin/bash\n\n"{environ.get("ORCA_601_PATH")}" "{job_dir}/{jobname}".inp > "{job_dir}/{jobname}".out --oversubscribe',
             name=email[:4] + "***",
             nodes=1,
             ntasks=1,
@@ -88,11 +88,12 @@ def submit_sbatch(
 
     job_id: int = job.submit()
 
-    job_class: pyslurm.job = pyslurm.job()
-    get_exit_code: int = job_class.wait_finished(jobid=job_id)
+    # job_class: pyslurm.job = pyslurm.job()
+    # get_exit_code: int = job_class.wait_finished(jobid=job_id)
 
-    if get_exit_code == 0:
-        pass
+    # if get_exit_code == 0:
+    #     pass
+    return jsonify({"message": f"Submit Job {job_id} Success"}, 201)
 
 
 def isValidCoord(line: list) -> bool:
@@ -173,12 +174,12 @@ class SubmitSBATCH(Resource):
 class SubmitORCA(Resource):
     def post(self):
         formData: dict = request.form.to_dict()
-        jobname: str = secure_filename(formData.get("name"))
+        jobname: str = rf"{formData.get("name")}"
 
         if len(request.files) > 0 and "smiles" not in formData.keys():
             inputFile: FileStorage = request.files["inputFile"]
-            fname: str = secure_filename(inputFile.filename)
-            jobDirectory: str = f"../public/user_file/{formData.get("email")}/{jobname}"
+            fname: str = rf"{inputFile.filename}"
+            jobDirectory: str = f"./user_file/{formData.get("email")}/{jobname}"
 
             if inputFile.filename.endswith(".sdf"):
                 sdf_read: str = inputFile.read().decode("utf-8")
@@ -259,7 +260,7 @@ class SubmitORCA(Resource):
                 print(e)
 
         elif len(request.files) == 0 and "smiles" in formData.keys():
-            jobDirectory: str = f"../public/user_file/{formData.get("email")}/{jobname}"
+            jobDirectory: str = f"./user_file/{formData.get("email")}/{jobname}"
 
             try:
                 mol: pb.Molecule = pb.readstring("smiles", formData["smiles"])

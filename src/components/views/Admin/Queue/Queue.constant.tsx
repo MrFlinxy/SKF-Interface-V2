@@ -1,5 +1,4 @@
 const COLUMN_LISTS_QUEUE = [
-  //   { name: "ID", uid: "id" },
   { name: "USER", uid: "user" },
   { name: "SOFTWARE", uid: "software" },
   { name: "CPU", uid: "cpu" },
